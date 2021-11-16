@@ -1,7 +1,11 @@
 import re
 
 immunity_deb_output_file = input("Path to the immunity debugger output:")
+start_bad=input("Already know bad char:(ex:\\x00\\xff)")
 
+
+def get_start_bad():
+    return start_bad.upper().split("\\X")
 
 def construct_initial_char_list():
     t = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
@@ -57,6 +61,13 @@ def show_bad_char(bad_char_list):
 
 bad_char = ["00"]
 char_list = construct_initial_char_list()
+for elem in get_start_bad():
+    try:
+        if elem != "":
+            bad_char.append(elem)
+            char_list.remove(elem)
+    except:
+        pass
 need_loop = True
 while need_loop:
     need_loop = False
